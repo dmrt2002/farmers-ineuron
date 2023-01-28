@@ -108,15 +108,15 @@
         type: Array,
         default: () => [
           {
-            link: '',
-            name: 'Profile',
-            tooltip: 'Event',
+            link: 'http://127.0.0.1:5173/#/admin',
+            name: 'Add Product',
+            tooltip: 'Add Product',
             icon: 'bx-grid-alt',
           },
           {
-            link: 'http://hept-data.herokuapp.com/#/participants',
-            name: 'Participants',
-            tooltip: 'Participants',
+            link: 'http://127.0.0.1:5173/#/products',
+            name: 'Products',
+            tooltip: 'Products',
             icon: 'bx-user',
           },
           {

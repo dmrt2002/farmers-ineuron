@@ -9,5 +9,9 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 router.post("/login", jsonParser, userController.farmerLogin);
 router.post("/addproduct", jsonParser, userController.storeProducts);
+router.post("/getproductsbyfarmer", jsonParser, userController.getProductById);
+
+
+
 
 module.exports = router;

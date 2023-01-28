@@ -317,6 +317,7 @@
 <script>
 import { useRouter } from "vue-router";
 import { reactive, ref, toRefs } from "vue";
+import { useStore } from "vuex";
 import axios from "axios";
 export default {
   components: {
@@ -324,6 +325,7 @@ export default {
   },
   setup() {
     const router = useRouter();
+    const store = useStore();
     const fstate = reactive({
       femail: "",
       fpassword: "",
@@ -336,6 +338,7 @@ export default {
         try {
           let res = await axios.post("http://localhost:5000/farmer/login", fstate);
           if (res.status !== 401) {
+            store.dispatch("storeToken", res.data.token);
             router.push("/admin");
           }
         } catch (e) {
@@ -345,6 +348,7 @@ export default {
         try {
           let res = await axios.post("http://localhost:5000/user/login", ustate);
           if (res.status !== 401) {
+            store.dispatch("storeToken", res.data.token);
             router.push("/");
           }
         } catch (e) {
