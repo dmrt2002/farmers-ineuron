@@ -1,16 +1,25 @@
 const mongoose = require("mongoose");
 const userSchema = mongoose.Schema({
+  name: {
+    type: String,
+  },
   email: {
     type: String,
   },
   password: {
     type: String,
   },
+  products: {
+    type: Array
+  },
+  orders: {
+    type: Array
+  }
 });
 //this method search for a user by email and password.
 userSchema.statics.findByCredentials = async (email, password) => {
     console.log(email,password)
-  const user = await Admin.findOne({ email })
+  const user = await Farmer.findOne({ email })
   if (user === null) {
     return user;
   }
@@ -19,5 +28,5 @@ userSchema.statics.findByCredentials = async (email, password) => {
   }
 };
 
-const Admin = mongoose.model("Admin", userSchema, "admins");
-module.exports = Admin;
+const Farmer = mongoose.model("Farmers", userSchema, "farmers");
+module.exports = Farmer
