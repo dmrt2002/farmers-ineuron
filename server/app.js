@@ -22,7 +22,9 @@ mongoose.connect(process.env.DB_URI, {
 app.use(cors());
 
 const farmerRoutes = require("./routers/farmer.js")
+const userRoutes = require("./routers/user.js")
 app.use("/farmer", farmerRoutes);
+app.use("/user", userRoutes);
 
 
   app.use(express.static(__dirname + "/dist/"))

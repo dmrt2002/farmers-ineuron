@@ -25,6 +25,7 @@
               Username
             </lable>
             <input
+            v-model="name"
               aria-label="enter username here"
               role="input"
               type="text"
@@ -36,6 +37,7 @@
               Email
             </lable>
             <input
+            v-model="email"
               aria-label="enter email adress"
               role="input"
               type="email"
@@ -48,6 +50,7 @@
             </lable>
             <div class="relative flex items-center justify-center">
               <input
+              v-model="password"
                 aria-label="enter Password"
                 role="input"
                 type="password"
@@ -71,6 +74,7 @@
           </div>
           <div class="mt-8">
             <button
+            @click="redirect"
               role="button"
               aria-label="create my account"
               class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full"
@@ -83,3 +87,38 @@
     </div>
   </body>
 </template>
+
+<script>
+import { useRouter } from "vue-router";
+import { reactive, ref, toRefs } from "vue";
+import axios from 'axios'
+export default {
+  components: {
+
+  },
+  setup() {
+    const router = useRouter();
+    const state = reactive({
+      name:"",
+      email: "",
+      password: "",
+    });
+    let redirect = async () => {
+        try {
+          let res = await axios.post("http://localhost:5000/user/register", state);
+          console.log(res)
+          if (res.status !== 401) {
+            router.push("/");
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      }
+
+    return {
+      ...toRefs(state),
+      redirect,
+    };
+  },
+};
+</script>

@@ -8,17 +8,6 @@
       class="logo-details"
       style="margin: 6px 14px 0 14px;"
     >
-      <img
-        v-if="menuLogo"
-        :src="menuLogo"
-        alt="menu-logo"
-        class="menu-logo icon"
-      >
-      <i
-        v-else
-        class="bx icon"
-        :class="menuIcon"
-      />
       <div class="logo_name">
         {{ menuTitle }}
       </div>
@@ -39,19 +28,6 @@
           class="nav-list"
           style="overflow: visible;"
         >
-          <li
-            v-if="isSearch"
-            @click="isOpened = true"
-          >
-            <i class="bx bx-search" />
-            <input
-              type="text"
-              :placeholder="searchPlaceholder"
-              @input="$emit('search-input-emit', $event.target.value)"
-            >
-            <span class="tooltip">{{ searchTooltip }}</span>
-          </li>
-
           <span
             v-for="(menuItem, index) in menuItems"
             :key="index"
@@ -132,8 +108,8 @@
         type: Array,
         default: () => [
           {
-            link: 'http://hept-data.herokuapp.com/#/events',
-            name: 'Event',
+            link: '',
+            name: 'Profile',
             tooltip: 'Event',
             icon: 'bx-grid-alt',
           },

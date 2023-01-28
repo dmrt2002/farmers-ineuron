@@ -43,6 +43,7 @@
                   <div class="mb-4">
                     <input
                       type="text"
+                      v-model="femail"
                       class="
                         form-control
                         m-0
@@ -70,6 +71,7 @@
                   <div class="mb-4">
                     <input
                       type="password"
+                      v-model="fpassword"
                       class="
                         form-control
                         m-0
@@ -120,6 +122,7 @@
                         active:shadow-lg
                       "
                       type="button"
+                      @click="redirect"
                       data-mdb-ripple="true"
                       data-mdb-ripple-color="light"
                     >
@@ -187,6 +190,7 @@
                   <div class="mb-4">
                     <input
                       type="text"
+                      v-model="uemail"
                       class="
                         form-control
                         m-0
@@ -214,6 +218,7 @@
                   <div class="mb-4">
                     <input
                       type="password"
+                      v-model="upassword"
                       class="
                         form-control
                         m-0
@@ -240,6 +245,7 @@
                   </div>
                   <div class="mb-12 pt-1 pb-1 text-center">
                     <button
+                    @click="redirectUser"
                       class="
                         mb-3
                         inline-block
@@ -309,7 +315,48 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
+import { reactive, ref, toRefs } from "vue";
+import axios from "axios";
 export default {
-  setup() {},
+  components: {
+
+  },
+  setup() {
+    const router = useRouter();
+    const fstate = reactive({
+      femail: "",
+      fpassword: "",
+    });
+    const ustate = reactive({
+      uemail: "",
+      upassword: "",
+    });
+    let redirect = async () => {
+        try {
+          let res = await axios.post("http://localhost:5000/farmer/login", fstate);
+          if (res.status !== 401) {
+            router.push("/admin");
+          }
+        } catch (e) {
+        }
+      }
+      let redirectUser = async () => {
+        try {
+          let res = await axios.post("http://localhost:5000/user/login", ustate);
+          if (res.status !== 401) {
+            router.push("/");
+          }
+        } catch (e) {
+            console.log(e)
+        }
+      }
+    return {
+      ...toRefs(fstate),
+      ...toRefs(ustate),
+      redirect,
+      redirectUser
+    };
+  },
 };
 </script>

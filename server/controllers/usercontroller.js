@@ -3,11 +3,9 @@ const User = require("../modals/User");
 const cloudinary = require('../utils/cloudinary.js')
 
 exports.registerUser = async (req, res) => {
-  var name = req.body.lastName;
+  var name = req.body.name;
   var email = req.body.email;
   var password = req.body.password;
-  match = User.filter((obj) => obj.email === email)
-  if(!match) {
     User.create(
       {
         name: name,
@@ -22,15 +20,12 @@ exports.registerUser = async (req, res) => {
         }
       }
     );
-  } else {
-    res.status(401).json("User already Created")
-  }
 };
 
 exports.userLogin = async (req, res) => {
   try {
-    const email = req.body.email;
-    const password = req.body.password;
+    const email = req.body.uemail;
+    const password = req.body.upassword;
     const admin = await User.findByCredentials(email, password);
     if (admin === null) {
       return res.status(401).json("Invalid Credentials");
@@ -43,8 +38,8 @@ exports.userLogin = async (req, res) => {
 
 exports.farmerLogin = async (req, res) => {
   try {
-    const email = req.body.email;
-    const password = req.body.password;
+    const email = req.body.femail;
+    const password = req.body.fpassword;
     const admin = await Farmer.findByCredentials(email, password);
     if (admin === null) {
       return res.status(401).json("Invalid Credentials");
