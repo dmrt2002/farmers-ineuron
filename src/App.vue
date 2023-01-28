@@ -1,4 +1,5 @@
 <template>
+  <Home />
   <router-view/>
 </template>
 
@@ -11,3 +12,6 @@
 font-family: 'Roboto', sans-serif;
   }
 </style>
+
+<script>
+</script>

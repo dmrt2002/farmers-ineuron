@@ -1,5 +1,5 @@
 <template>
-  <body class="h-screen overflow-hidden">
+  <body class="h-screen">
     <div
       class="min-h-screen bg-gradient-to-tl from-green-400 to-indigo-900 w-full px-4"
     >
