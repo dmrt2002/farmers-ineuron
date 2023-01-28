@@ -131,31 +131,10 @@
         <nav aria-label="Top">
           <!-- Top navigation -->
           <div class="bg-gray-900">
-            <div class="max-w-7xl mx-auto h-10 px-4 flex items-center justify-between sm:px-6 lg:px-8">
-              <!-- Currency selector -->
-              <form class="hidden lg:block lg:flex-1">
-                <div class="flex">
-                  <label for="desktop-currency" class="sr-only">Currency</label>
-                  <div class="-ml-2 group relative bg-gray-900 border-transparent rounded-md focus-within:ring-2 focus-within:ring-white">
-                    <select id="desktop-currency" name="currency" class="bg-none bg-gray-900 border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-white group-hover:text-gray-100 focus:outline-none focus:ring-0 focus:border-transparent">
-                      <option v-for="currency in currencies" :key="currency">{{ currency }}</option>
-                    </select>
-                    <div class="absolute right-0 inset-y-0 flex items-center pointer-events-none">
-                      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" class="w-5 h-5 text-gray-300">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 8l4 4 4-4" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </form>
-  
+            <div class="max-w-7xl mx-auto h-10 px-4 flex items-center justify-center sm:px-6 lg:px-8">
+
               <p class="flex-1 text-center text-sm font-medium text-white lg:flex-none">Get free delivery on orders over $100</p>
-  
-              <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                <a href="#" class="text-sm font-medium text-white hover:text-gray-100">Create an account</a>
-                <span class="h-6 w-px bg-gray-600" aria-hidden="true" />
-                <a href="#" class="text-sm font-medium text-white hover:text-gray-100">Sign in</a>
-              </div>
+
             </div>
           </div>
   
