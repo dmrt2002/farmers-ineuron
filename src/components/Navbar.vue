@@ -35,13 +35,6 @@
               <!-- Links -->
               <TabGroup as="div" class="mt-2">
                 <div class="border-b border-gray-200">
-                  <TabList class="-mb-px flex px-4 space-x-8">
-                    <Tab as="template" v-for="category in navigation.categories" :key="category.name" v-slot="{ selected }">
-                      <button :class="[selected ? 'text-indigo-600 border-indigo-600' : 'text-gray-900 border-transparent', 'flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium']">
-                        {{ category.name }}
-                      </button>
-                    </Tab>
-                  </TabList>
                 </div>
                 <TabPanels as="template">
                   <TabPanel v-for="(category, categoryIdx) in navigation.categories" :key="category.name" class="px-4 pt-10 pb-6 space-y-12">
@@ -331,14 +324,6 @@
     TransitionRoot,
   } from '@headlessui/vue'
   const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
-  const navigation = {
-    pages: [
-      { name: 'Company', href: '#' },
-      { name: 'Stores', href: '#' },
-      { name: 'Company', href: '#' },
-      { name: 'Stores', href: '#' },
-    ],
-  }
   
   export default {
     components: {
