@@ -1,24 +1,13 @@
-<script setup>
-</script>
-
 <template>
-  <div>
-    <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-  </div>
+  <router-view/>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+font-family: 'Roboto', sans-serif;
+  }
 </style>
