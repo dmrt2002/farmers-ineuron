@@ -3,6 +3,7 @@ import Signup from "../components/Signup.vue"
 import Home from "../components/Home.vue"
 import Admin from "../components/Admin.vue"
 import Products from "../components/products.vue"
+import checkout from "../components/checkout.vue"
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
@@ -30,6 +31,11 @@ const routes = [
         path: '/products',
         name: 'products',
         component: Products
+    },
+    {
+        path: '/checkout',
+        name: 'checkout',
+        component: checkout
     },
 ]
 
