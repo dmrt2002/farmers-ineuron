@@ -194,6 +194,50 @@
           </div>
         </div>
       </div>
+      <div v-if="sentSuccessfully" id="alert" class="transition duration-150 ease-in-out absolute top-0 mt-12 w-full bg-green-400 shadow mb-8">
+            <div class="container mx-auto xl:w-full lg:transition duration-150 ease-in-out w-11/12">
+                <div class="w-full xl:flex lg:flex py-6 items-center">
+                    <div class="xl:w-5/6 lg:w-5/6 w-full flex xl:flex-row lg:flex-row flex-col justify-center items-center xl:justify-start lg:justify-start">
+                        <div class="text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path class="heroicon-ui" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-2.3-8.7l1.3 1.29 3.3-3.3a1 1 0 0 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1 1.4-1.42z" />
+                            </svg>
+                        </div>
+                        <p class="mx-4 text-lg text-white text-center sm:text-left">Product Successfully added</p>
+                    </div>
+                    <div class="w-2/12 flex justify-end">
+                        <div onclick="closeAlert()" class="cursor-pointer xl:relative lg:relative absolute top-0 right-0 mr-2 mt-2 xl:mt-0 xl:mr-0 lg:mt-0 lg:mr-0 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="errorMessage" id="alert" class="transition duration-150 ease-in-out absolute top-0 mt-12 w-full bg-red-400 shadow mb-8">
+            <div class="container mx-auto xl:w-full lg:transition duration-150 ease-in-out w-11/12">
+                <div class="w-full xl:flex lg:flex py-6 items-center">
+                    <div class="xl:w-5/6 lg:w-5/6 w-full flex xl:flex-row lg:flex-row flex-col justify-center items-center xl:justify-start lg:justify-start">
+                        <div class="text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path class="heroicon-ui" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-2.3-8.7l1.3 1.29 3.3-3.3a1 1 0 0 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1 1.4-1.42z" />
+                            </svg>
+                        </div>
+                        <p class="mx-4 text-lg text-white text-center sm:text-left">Something Went Wrong</p>
+                    </div>
+                    <div class="w-2/12 flex justify-end">
+                        <div onclick="closeAlert()" class="cursor-pointer xl:relative lg:relative absolute top-0 right-0 mr-2 mt-2 xl:mt-0 xl:mr-0 lg:mt-0 lg:mr-0 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
     </template>
 
@@ -202,18 +246,23 @@ import dashboard from "./dashboard.vue";
 import { useStore } from "vuex";
 import { reactive, ref, toRefs } from '@vue/reactivity';
 import axios from "axios";
+import { useRouter } from 'vue-router';
 export default {
   components: {
     dashboard,
   },
   setup() {
     const store = useStore();
-    const myfile = ref("")
+    const router = useRouter();
+    const myfile = ref("");
+    const sentSuccessfully = ref(false)
+    const errorMessage = ref(false)
     const fileUpdate = (event) => {
       let file = event.target.files[0]
       const reader = new FileReader();
       reader.readAsDataURL(file)
       reader.onloadend = () => {
+        console.log(reader.result);
         myfile.value = reader.result
     }
 }
@@ -229,11 +278,19 @@ export default {
             type: state.type,
             price: state.price,
             token: state.token,
-            image: myfile.value
+            image: myfile.value,
         }
-        await axios.post("http://localhost:5000/farmer/addproduct", param)
+         let res = await axios.post("http://localhost:5000/farmer/addproduct", param);
+         if (res.status === 200) {
+            sentSuccessfully.value = true
+            setTimeout(() => { sentSuccessfully.value = false; }, 2000)
+         }
+         else {
+            errorMessage.value = true
+            setTimeout(() => { errorMessage.value = false; }, 2000)
+         }
     }
-    return { fileUpdate, ...toRefs(state), submit}
+    return { fileUpdate, ...toRefs(state), submit, sentSuccessfully, errorMessage}
   }
 };
 </script>

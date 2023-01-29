@@ -1,9 +1,7 @@
 const Farmer = require("../modals/Farmer");
 const User = require("../modals/User");
-const cloudinary = require('../utils/cloudinary.js');
 const jwt = require("jsonwebtoken");
 const cookie = require("cookie");
-const { response } = require("express");
 
 exports.registerUser = async (req, res) => {
   var name = req.body.name;
@@ -56,7 +54,6 @@ exports.farmerLogin = async (req, res) => {
       return res.status(401).json("Invalid Credentials");
     }
     let token = jwt.sign({ admin }, "secret");
-    console.log(cookie);
     res.setHeader('Set-Cookie', cookie.serialize('auth', token, {
       httpOnly: false,
       secure: true,
@@ -75,9 +72,6 @@ exports.storeProducts = async(req,res) => {
     let image = product.image
     var decoded = jwt.decode(product.token);
     let userId = decoded['admin']._id
-    const result = await cloudinary.uploader.upload(image,{
-      folder:"images",
-    })
     let updated = await Farmer.findOneAndUpdate({
       _id: userId,
     } , {
@@ -86,10 +80,8 @@ exports.storeProducts = async(req,res) => {
           title: product.title,
           type: product.type,
           price: product.price,
-          image: {
-            public_id:result.public_id,
-            url:result.secure_url
-          }
+          image: product.image,
+          farmerId: userId
         }
       },
     });
@@ -122,4 +114,80 @@ exports.getProducts = async (req,res) => {
     }
   }
   res.status(200).json(products)
+}
+
+exports.getOrdersByFarmer = async (req,res) => {
+  let userId = jwt.decode(req.body.token)['admin']._id ;
+  let data = await Farmer.find({ _id: userId });
+  let orders = data[0].orders;
+  res.status(200).json(orders)
+}
+
+exports.checkout = async (req,res) => {
+  let data = req.body;
+  let userId = await User.findOne({ email: data.email })
+  console.log(data.email)
+  let updated = await User.findOneAndUpdate({
+    _id: userId,
+  } , {
+    $push: {
+        orders: data.cart
+    },
+  });
+  let updatedtwo = await User.findOneAndUpdate({
+    _id: userId,
+  } ,
+    {
+        address: data.address
+    },
+  );
+  for (let i = 0; i < data.cart.length; i++ ) {
+    let updated = await Farmer.findOneAndUpdate({
+      _id: data.cart[i].farmerId,
+    } , {
+      $push: {
+        orders: {
+          name: data.name,
+          product: data.cart[i].title,
+          email: data.email,
+          address: data.address,
+          price: data.price 
+        }
+      },
+    });
+    res.status(200).json("done")
+  }
+}
+
+exports.deleteProduct = async (req,res) => {
+  let userId = req.body.farmerId;
+  let farmer = await Farmer.findOne({ _id: userId }) ;
+  let newProducts = farmer.products.filter((obj) => {
+    return obj.title !== req.body.title
+  })
+  let updatedtwo = await Farmer.findOneAndUpdate({
+    _id: userId,
+  } ,
+    {
+        products: newProducts
+    },
+  );
+  res.status(200)
+}
+
+exports.deleteOrder = async (req,res) => {
+  let userId = jwt.decode(req.body.token)['admin']._id ;
+  let farmer = await Farmer.findOne({ _id: userId })
+  console.log(req.body.order.product)
+  let orders = farmer.orders.filter((obj) => {
+    return obj.product !== req.body.order.product && obj.email === req.body.order.email
+  })
+  let updatedtwo = await Farmer.findOneAndUpdate({
+    _id: userId,
+  } ,
+    {
+        orders: orders
+    },
+  );
+  res.status(200).json("done")
 }

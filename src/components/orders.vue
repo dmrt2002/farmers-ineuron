@@ -7,7 +7,7 @@
                 <div class="sm:flex items-center justify-between">
                     <p tabindex="0"
                         class="focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">
-                        My Products </p>
+                        Orders </p>
                     <div class="flex items-center mt-4 sm:mt-0">
                         <div aria-label="search bar" tabindex="0"
                             class="focus:outline-none focus:ring-2 focus:ring-gray-600 flex items-center pl-3 bg-white border rounded-md border-gray-200">
@@ -33,19 +33,27 @@
                             <tr
                                 class="h-20 text-sm leading-none text-gray-700 border-b border-t border-gray-200 bg-white">
                                 <td tabindex="0" class="focus:outline-none pl-4">Name</td>
-                                <td tabindex="0" class="focus:outline-none pl-4">Type</td>
+                                <td tabindex="0" class="focus:outline-none pl-4">Address</td>
+                                <td tabindex="0" class="focus:outline-none pl-4">Email</td>
                                 <td tabindex="0" class="focus:outline-none pl-4">Price</td>
+                                <td tabindex="0" class="focus:outline-none pl-4">Product</td>
                             </tr>
                             <tr v-for="data in tableData" :key="data.id"
                                 class="h-20 text-sm leading-none text-gray-700 border-b border-t border-gray-200 bg-white hover:bg-gray-100">
-                                <td tabindex="0" class="focus:outline-none pl-4">{{ data.title }}</td>
-                                <td tabindex="0" class="focus:outline-none pl-10">{{ data.type }}</td>
+                                <td tabindex="0" class="focus:outline-none pl-4">{{ data.name }}</td>
+                                <td tabindex="0" class="focus:outline-none pl-10">{{ data.address  }}</td>
                                 <td class="pl-10">
-                                    <span tabindex="0" class="focus:outline-none"> {{ data.price}} </span>
+                                    <span tabindex="0" class="focus:outline-none"> {{ data.email }} </span>
+                                </td>
+                                <td class="pl-10">
+                                    <span tabindex="0" class="focus:outline-none"> {{ data.price }} </span>
+                                </td>
+                                <td class="pl-10">
+                                    <span tabindex="0" class="focus:outline-none"> {{ data.product }} </span>
                                 </td>
                                 <td class="pl-10">
                                     <div class="flex items-center">
-                                        <button @click="deleteProduct(data)"
+                                        <button @click="deleteOrder(data)"
                                             class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 focus:outline-none bg-gray-100 mr-5 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-600">Delete</button>
                                     </div>
                                 </td>
@@ -75,17 +83,34 @@ export default {
         const router = useRouter()
         const store = useStore();
         const searchText = ref();
+        let products = ref([])
         onMounted(async () => {
             let param =  {
                 token: store.getters.getToken
             }
-            let res = await axios.post("http://localhost:5000/farmer/getproductsbyfarmer" , param);
+            let result = await axios.post("http://localhost:5000/farmer/getproductsbyfarmer" , param);
+            products.value = result.data
+            let res = await axios.post("http://localhost:5000/farmer/getordersbyfarmer" , param);
+            for (let i = 0 ; i < res.data.length; i++ ) {
+                res.data[i].price = getProductPrice(res.data[i].product)
+            }
+            console.log(res.data)
             tableData.value = res.data;
         })
+        const submitSearch = async () => {
+        }
+        const getProductPrice = (title) => {
+            console.log(title)
+            for ( let j = 0; j < products.value.length; j++ ) {
+                if (title === products.value[j].title) {
+                    return products.value[j].price
+                }
+            }
+        }
         watch(searchText, async() => {
             if (searchText.value !== "") {
                 let result = tableData.value.filter((obj) => {
-                    return obj.title.toLowerCase().startsWith(searchText.value.toLowerCase())
+                    return obj.product.startsWith(searchText.value)
                 })
                 tableData.value = result
             }
@@ -93,17 +118,21 @@ export default {
                 let param =  {
                 token: store.getters.getToken
             }
-            let res = await axios.post("http://localhost:5000/farmer/getproductsbyfarmer" , param);
+            let res = await axios.post("http://localhost:5000/farmer/getordersbyfarmer" , param);
             tableData.value = res.data;
             }
         })
-        const deleteProduct = async (product) => {
-            let res = await axios.post("http://localhost:5000/farmer/deleteproduct", product)
+        const deleteOrder = async (order) => {
+            const param = {
+                token: store.getters.getToken,
+                order: order
+            }
+            let res = await axios.post("http://localhost:5000/farmer/deleteOrder", param)
             if (res.status === 200) {
-                location.reload();
+                location.reload()
             }
         }
-        return { tableData, searchText, deleteProduct };
+        return { tableData, submitSearch, searchText, deleteOrder };
     }
 }
 </script>

@@ -12,9 +12,6 @@ const userSchema = mongoose.Schema({
   address: {
     type: String
   },
-  number: {
-    type: Number
-  },
   orders: {
     type: Array
   }

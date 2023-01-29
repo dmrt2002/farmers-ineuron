@@ -1,231 +1,5 @@
 <template>
   <div class="bg-white">
-    <!-- Mobile menu -->
-    <TransitionRoot as="template" :show="open">
-      <Dialog
-        as="div"
-        class="fixed inset-0 flex z-40 lg:hidden"
-        @close="open = false"
-      >
-        <TransitionChild
-          as="template"
-          enter="transition-opacity ease-linear duration-300"
-          enter-from="opacity-0"
-          enter-to="opacity-100"
-          leave="transition-opacity ease-linear duration-300"
-          leave-from="opacity-100"
-          leave-to="opacity-0"
-        >
-          <DialogOverlay class="fixed inset-0 bg-black bg-opacity-25" />
-        </TransitionChild>
-
-        <TransitionChild
-          as="template"
-          enter="transition ease-in-out duration-300 transform"
-          enter-from="-translate-x-full"
-          enter-to="translate-x-0"
-          leave="transition ease-in-out duration-300 transform"
-          leave-from="translate-x-0"
-          leave-to="-translate-x-full"
-        >
-          <div
-            class="relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto"
-          >
-            <div class="px-4 pt-5 pb-2 flex">
-              <button
-                type="button"
-                class="-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400"
-                @click="open = false"
-              >
-                <span class="sr-only">Close menu</span>
-                <i class="fa-solid fa-xmark"></i>
-              </button>
-            </div>
-
-            <!-- Links -->
-            <TabGroup as="div" class="mt-2">
-              <div class="border-b border-gray-200"></div>
-              <TabPanels as="template">
-                <TabPanel
-                  v-for="(category, categoryIdx) in navigation.categories"
-                  :key="category.name"
-                  class="px-4 pt-10 pb-6 space-y-12"
-                >
-                  <div class="grid grid-cols-1 items-start gap-y-10 gap-x-6">
-                    <div class="grid grid-cols-1 gap-y-10 gap-x-6">
-                      <div>
-                        <p
-                          :id="`mobile-featured-heading-${categoryIdx}`"
-                          class="font-medium text-gray-900"
-                        >
-                          Featured
-                        </p>
-                        <ul
-                          role="list"
-                          :aria-labelledby="`mobile-featured-heading-₹{categoryIdx}`"
-                          class="mt-6 space-y-6"
-                        >
-                          <li
-                            v-for="item in category.featured"
-                            :key="item.name"
-                            class="flex"
-                          >
-                            <a :href="item.href" class="text-gray-500">
-                              {{ item.name }}
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div>
-                        <p
-                          id="mobile-categories-heading"
-                          class="font-medium text-gray-900"
-                        >
-                          Categories
-                        </p>
-                        <ul
-                          role="list"
-                          aria-labelledby="mobile-categories-heading"
-                          class="mt-6 space-y-6"
-                        >
-                          <li
-                            v-for="item in category.categories"
-                            :key="item.name"
-                            class="flex"
-                          >
-                            <a :href="item.href" class="text-gray-500">
-                              {{ item.name }}
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="grid grid-cols-1 gap-y-10 gap-x-6">
-                      <div>
-                        <p
-                          id="mobile-collection-heading"
-                          class="font-medium text-gray-900"
-                        >
-                          Collection
-                        </p>
-                        <ul
-                          role="list"
-                          aria-labelledby="mobile-collection-heading"
-                          class="mt-6 space-y-6"
-                        >
-                          <li
-                            v-for="item in category.collection"
-                            :key="item.name"
-                            class="flex"
-                          >
-                            <a :href="item.href" class="text-gray-500">
-                              {{ item.name }}
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <p
-                          id="mobile-brand-heading"
-                          class="font-medium text-gray-900"
-                        >
-                          Brands
-                        </p>
-                        <ul
-                          role="list"
-                          aria-labelledby="mobile-brand-heading"
-                          class="mt-6 space-y-6"
-                        >
-                          <li
-                            v-for="item in category.brands"
-                            :key="item.name"
-                            class="flex"
-                          >
-                            <a :href="item.href" class="text-gray-500">
-                              {{ item.name }}
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </TabPanel>
-              </TabPanels>
-            </TabGroup>
-
-            <div class="border-t border-gray-200 py-6 px-4 space-y-6">
-              <div
-                v-for="page in navigation.pages"
-                :key="page.name"
-                class="flow-root"
-              >
-                <a
-                  :href="page.href"
-                  class="-m-2 p-2 block font-medium text-gray-900"
-                  >{{ page.name }}</a
-                >
-              </div>
-            </div>
-
-            <div class="border-t border-gray-200 py-6 px-4 space-y-6">
-              <div class="flow-root">
-                <a href="#" class="-m-2 p-2 block font-medium text-gray-900"
-                  >Create an account</a
-                >
-              </div>
-              <div class="flow-root">
-                <a href="#" class="-m-2 p-2 block font-medium text-gray-900"
-                  >Sign in</a
-                >
-              </div>
-            </div>
-
-            <div class="border-t border-gray-200 py-6 px-4 space-y-6">
-              <!-- Currency selector -->
-              <form>
-                <div class="inline-block">
-                  <label for="mobile-currency" class="sr-only">Currency</label>
-                  <div
-                    class="-ml-2 group relative border-transparent rounded-md focus-within:ring-2 focus-within:ring-white"
-                  >
-                    <select
-                      id="mobile-currency"
-                      name="currency"
-                      class="bg-none border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-gray-700 group-hover:text-gray-800 focus:outline-none focus:ring-0 focus:border-transparent"
-                    >
-                      <option v-for="currency in currencies" :key="currency">
-                        {{ currency }}
-                      </option>
-                    </select>
-                    <div
-                      class="absolute right-0 inset-y-0 flex items-center pointer-events-none"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 20"
-                        class="w-5 h-5 text-gray-500"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1.5"
-                          d="M6 8l4 4 4-4"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </TransitionChild>
-      </Dialog>
-    </TransitionRoot>
-
     <header class="relative">
       <nav aria-label="Top">
         <!-- Top navigation -->
@@ -436,14 +210,6 @@
 
                 <!-- Mobile menu and search (lg-) -->
                 <div class="flex-1 flex items-center lg:hidden">
-                  <button
-                    type="button"
-                    class="-ml-2 bg-white p-2 rounded-md text-gray-400"
-                    @click="open = true"
-                  >
-                    <span class="sr-only">Open menu</span>
-                    <i class="fa-solid fa-bars"></i>
-                  </button>
 
                   <!-- Search -->
                   <a
@@ -580,8 +346,7 @@
                                                       class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
                                                     >
                                                       <img
-                                                        :src="product.imageSrc"
-                                                        :alt="product.imageAlt"
+                                                        :src="product.image"
                                                         class="h-full w-full object-cover object-center"
                                                       />
                                                     </div>
@@ -595,11 +360,8 @@
                                                         >
                                                           <h3>
                                                             <a
-                                                              :href="
-                                                                product.href
-                                                              "
                                                               >{{
-                                                                product.name
+                                                                product.title
                                                               }}</a
                                                             >
                                                           </h3>
@@ -607,11 +369,6 @@
                                                             {{ product.price }}
                                                           </p>
                                                         </div>
-                                                        <p
-                                                          class="mt-1 text-sm text-gray-500"
-                                                        >
-                                                          {{ product.color }}
-                                                        </p>
                                                       </div>
                                                       <div
                                                         class="flex flex-1 items-end justify-between text-sm"
@@ -620,11 +377,12 @@
                                                           class="text-gray-500"
                                                         >
                                                           Qty
-                                                          {{ product.quantity }}
+                                                          1
                                                         </p>
 
                                                         <div class="flex">
                                                           <button
+                                                          @click="removeCart(product.title)"
                                                             type="button"
                                                             class="font-medium text-indigo-600 hover:text-indigo-500"
                                                           >
@@ -646,7 +404,7 @@
                                               class="flex justify-between text-base font-medium text-gray-900"
                                             >
                                               <p>Subtotal</p>
-                                              <p>₹262.00</p>
+                                              <p>₹ {{  totalCart  }}</p>
                                             </div>
                                             <p
                                               class="mt-0.5 text-sm text-gray-500"
@@ -656,7 +414,8 @@
                                             </p>
                                             <div class="mt-6">
                                               <a
-                                                href="#"
+                                                type="button"
+                                                @click="redirect"
                                                 class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                                 >Checkout</a
                                               >
@@ -693,7 +452,7 @@
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span
                           class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800"
-                          >0</span
+                          >{{ cartSize  }}</span
                         >
                         <span class="sr-only">items in cart, view bag</span>
                       </div>
@@ -710,36 +469,7 @@
 </template>
 
 <script>
-
-const products = [
-  {
-    id: 1,
-    name: "Throwback Hip Bag",
-    href: "#",
-    color: "Salmon",
-    price: "₹90.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
-    imageAlt:
-      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-  },
-  {
-    id: 2,
-    name: "Medium Stuff Satchel",
-    href: "#",
-    color: "Blue",
-    price: "₹32.00",
-    quantity: 1,
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-    imageAlt:
-      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-  },
-  // More products...
-];
-
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 import {
   Dialog,
@@ -758,6 +488,8 @@ import {
   TabPanel,
   TabPanels,
 } from "@headlessui/vue";
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 
 export default {
@@ -780,11 +512,35 @@ export default {
   setup() {
     const open = ref(false);
     const cart = ref(false);
+    const router = useRouter();
+    const totalCart = ref(null)
+    const store = useStore();
+    const cartSize = ref(store.getters.getProducts.length)
+    watch (cart, () => {
+      cartSize.value = store.getters.getProducts.length;
+      totalCart.value = store.getters.getTotal
+      products.value = store.getters.getProducts
+    })
+    const products = store.getters.getProducts;
+    const redirect = () => {
+      router.push("/checkout")
+    }
+    const removeCart = (title) => {
+      let newProducts = store.getters.getProducts.filter((obj) => {
+        return obj.title !== title
+      })
+      store.dispatch("updateProducts", newProducts)
+      cart.value = !cart.value
+    }
     return {
       navigation,
       open,
       cart,
       products,
+      cartSize,
+      totalCart,
+      redirect,
+      removeCart
     };
   },
 };

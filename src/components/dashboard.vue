@@ -120,17 +120,12 @@
             icon: 'bx-user',
           },
           {
-            link: '#',
-            name: 'Reports',
-            tooltip: 'Reports',
+            link: 'http://127.0.0.1:5173/#/orders',
+            name: 'Orders',
+            tooltip: 'Orders',
             icon: 'bx-chat',
           },
-          {
-            link: '#',
-            name: 'Contents',
-            tooltip: 'Contents',
-            icon: 'bx-pie-chart-alt-2',
-          },
+
         ],
       },
       //! Search
