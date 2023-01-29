@@ -33,13 +33,13 @@
             :key="index"
           >
             <li>
-              <a :href="menuItem.link">
+              <router-link :to="`${menuItem.link}`">
                 <i
                   class="bx"
                   :class="menuItem.icon || 'bx-square-rounded'"
                 />
                 <span class="links_name">{{ menuItem.name }}</span>
-              </a>
+              </router-link>
               <span class="tooltip">{{ menuItem.tooltip || menuItem.name }}</span>
             </li>
           </span>
@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
   export default {
     name: 'SidebarMenuAkahon',
     props: {
@@ -108,25 +109,25 @@
         type: Array,
         default: () => [
           {
-            link: 'http://127.0.0.1:5173/#/admin',
+            link: '/admin',
             name: 'Add Product',
             tooltip: 'Add Product',
             icon: 'bx-grid-alt',
           },
           {
-            link: 'http://127.0.0.1:5173/#/products',
+            link: '/products',
             name: 'Products',
             tooltip: 'Products',
             icon: 'bx-user',
           },
           {
-            link: 'http://127.0.0.1:5173/#/orders',
+            link: '/orders',
             name: 'Orders',
             tooltip: 'Orders',
             icon: 'bx-chat',
           },
           {
-            link: 'http://127.0.0.1:5173/#/login',
+            link: '/',
             name: 'Logout',
             tooltip: 'Login',
             icon: 'bx-chat',

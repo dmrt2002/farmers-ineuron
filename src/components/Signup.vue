@@ -1,7 +1,7 @@
 <template>
   <body class="h-screen">
     <div
-      class="min-h-screen bg-gradient-to-tl from-green-400 to-indigo-900 w-full px-4"
+      class="min-h-screen bg-slate-100 00 w-full px-4"
     >
       <div class="flex flex-col items-center justify-center">
 

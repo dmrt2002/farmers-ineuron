@@ -153,8 +153,9 @@
                       "
                       data-mdb-ripple="true"
                       data-mdb-ripple-color="light"
-                    >
-                      Verify
+                    ><a href="mailto:shodhanshetty1442@gmail.com">
+                        Verify
+                    </a>
                     </button>
                   </div>
                 </form>

@@ -255,8 +255,8 @@ export default {
     const store = useStore();
     const router = useRouter();
     const myfile = ref("");
-    const sentSuccessfully = ref(false)
-    const errorMessage = ref(false)
+    const sentSuccessfully = ref(false);
+    const errorMessage = ref(false);
     const fileUpdate = (event) => {
       let file = event.target.files[0]
       const reader = new FileReader();
