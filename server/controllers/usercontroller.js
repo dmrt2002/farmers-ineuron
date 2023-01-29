@@ -17,7 +17,14 @@ exports.registerUser = async (req, res) => {
         if (err) {
           res.status(400).json(err);
         } else {
-          res.status(201).json(user);
+          let token = jwt.sign({ admin }, "secret");
+          res.setHeader('Set-Cookie', cookie.serialize('auth', token, {
+            httpOnly: false,
+            secure: true,
+            path: "/",
+            maxAge: 3600
+          }))
+          res.status(200).json({ token });
         }
       }
     );
@@ -125,6 +132,7 @@ exports.getOrdersByFarmer = async (req,res) => {
 
 exports.checkout = async (req,res) => {
   let data = req.body;
+  Object.assign(data, { date: Date.now() })
   let userId = await User.findOne({ email: data.email })
   console.log(data.email)
   let updated = await User.findOneAndUpdate({
@@ -151,7 +159,8 @@ exports.checkout = async (req,res) => {
           product: data.cart[i].title,
           email: data.email,
           address: data.address,
-          price: data.price 
+          price: data.price,
+          date: data.date
         }
       },
     });

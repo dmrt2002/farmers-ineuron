@@ -125,7 +125,12 @@
             tooltip: 'Orders',
             icon: 'bx-chat',
           },
-
+          {
+            link: 'http://127.0.0.1:5173/#/login',
+            name: 'Logout',
+            tooltip: 'Login',
+            icon: 'bx-chat',
+          },
         ],
       },
       //! Search
@@ -142,10 +147,6 @@
         default: 'Search',
       },
       //! Profile detailes
-      profileName: {
-        type: String,
-        default: 'R Tushar',
-      },
       profileRole: {
         type: String,
         default: 'Frontend vue developer',

@@ -91,6 +91,7 @@
 <script>
 import { useRouter } from "vue-router";
 import { reactive, ref, toRefs } from "vue";
+import { useStore } from "vuex";
 import axios from 'axios'
 export default {
   components: {
@@ -98,6 +99,7 @@ export default {
   },
   setup() {
     const router = useRouter();
+    const store = useStore();
     const state = reactive({
       name:"",
       email: "",
@@ -106,8 +108,9 @@ export default {
     let redirect = async () => {
         try {
           let res = await axios.post("http://localhost:5000/user/register", state);
-          console.log(res)
           if (res.status !== 401) {
+            store.dispatch("storeToken", res.data.token);
+            store.dispatch("storeEmail", state.uemail);
             router.push("/");
           }
         } catch (e) {

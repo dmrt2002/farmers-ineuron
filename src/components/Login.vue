@@ -281,6 +281,7 @@
                     <p class="mb-0 mr-2">New User?</p>
                     <button
                       type="button"
+                      @click="signup"
                       class="
                         inline-block
                         rounded
@@ -326,6 +327,9 @@ export default {
   setup() {
     const router = useRouter();
     const store = useStore();
+    const signup = () => {
+        router.push("/signup")
+    }
     const fstate = reactive({
       femail: "",
       fpassword: "",
@@ -361,7 +365,8 @@ export default {
       ...toRefs(fstate),
       ...toRefs(ustate),
       redirect,
-      redirectUser
+      redirectUser,
+      signup
     };
   },
 };
