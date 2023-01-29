@@ -1,7 +1,102 @@
-# Vue 3 + Vite
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# Fresh  Mart - The Online Market for Farm-to-Table Goods
 
-## Recommended IDE Setup
+A web-based platform for connecting local farmers with consumers in an online marketplace where farmers can list their products and consumers can purchase fresh, locally-sourced produce directly from the source.`
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+[Click here!](https://freshmart.up.railway.app)
+
+
+## Tech Stack - MEVN Stack
+
+**Client:**   Vite - Vue JS & TailwindCSS (headless UI)  
+**Server:**   Node JS, Express JS, Mongo DB
+
+
+
+## External Packages
+
+Paypal SDK
+
+```bash
+    npm install @paypal/paypal-js
+```
+
+Axios
+
+```bash
+    npm i axios
+```
+
+Font Awesome/Vue
+
+```bash
+    npm i @fortawesome/vue-fontawesome
+```
+
+
+## Environment Variables
+
+To run this project, you will need to add the MONGO DB connection   URI to your .env file
+
+`API_KEY` = `mongodb+srv://username:password@cluster0.2e015au.mongodb.net/?retryWrites=true&w=majority`
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/dmrt2002/farmers-ineuron.git
+```
+
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
+To run&nbsp;  **Express Server** 
+
+```bash
+  cd my-project/server
+```
+
+Install backend dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
+## Screenshot
+
+![Home](home.png)
+
+![Product List](list.png)
+
+![Cart](cart.png)
+
+![Checkout](checkout.png)
+
+
+## 🔗 Links
+[![Github](https://img.shields.io/badge/tushar-000?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/dmrt2002)
+[![Github](https://img.shields.io/badge/Subramanya-0A66C2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Subramanyarao11)
+[![Github](https://img.shields.io/badge/Shodhan-1DA1F2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/shodhanshetty14)
+
