@@ -84,13 +84,21 @@ Start the server
   npm run dev
 ```
 
-## Screenshot
+## Screenshots
+
+Home page
 
 ![Home](home.png)
 
+Products
+
 ![Product List](list.png)
 
+Cart
+
 ![Cart](cart.png)
+
+Checkout
 
 ![Checkout](checkout.png)
 
