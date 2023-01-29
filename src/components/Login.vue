@@ -1,5 +1,5 @@
 <template>
-  <div class="container h-full py-12 px-6">
+  <div class="container bg-slate-100 h-full py-12 px-6">
     <div
       class="
         g-6
@@ -19,7 +19,7 @@
                 <div class="text-center">
                   <img
                     class="mx-auto w-48"
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                    src="../assets/farmerChad.png"
                     alt="logo"
                   />
 
@@ -167,7 +167,7 @@
                 <div class="text-center">
                   <img
                     class="mx-auto w-48"
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                    src="../assets/customerChad.png"
                     alt="logo"
                   />
                   <h4 class="mt-1 mb-12 pb-1 text-2xl">
