@@ -91,10 +91,9 @@ export default {
             let res = await axios.post("http://localhost:5000/farmer/getordersbyfarmer", param);
             for (let i = 0; i < res.data.length; i++) {
                 res.data[i].price = getProductPrice(res.data[i].product)
-                console.log(Date.now(), res.data[i])
-                const yyyy = res.data[i].date.getFullYear();
-                let mm = res.data[i].date.getMonth() + 1; // Months start at 0!
-                let dd = res.data[i].date.getDate();
+                const yyyy = new Date(res.data[i].date).getFullYear();
+                let mm = new Date(res.data[i].date).getMonth() + 1; // Months start at 0!
+                let dd = new Date(res.data[i].date).getDate();
 
                 if (dd < 10) dd = '0' + dd;
                 if (mm < 10) mm = '0' + mm;

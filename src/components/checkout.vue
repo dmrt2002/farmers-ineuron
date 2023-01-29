@@ -139,7 +139,7 @@ export default {
       let res = await axios.post("http://localhost:5000/user/checkout", state)
       if (res.status === 200 ) {
         store.dispatch('emptyProducts');
-        router.push("/")
+        router.push("/home")
       }
     }
     return {

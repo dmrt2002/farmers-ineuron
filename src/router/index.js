@@ -9,7 +9,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
     {
-        path: '/login',
+        path: '/',
         name: 'login',
         component: Login
     },
@@ -19,7 +19,7 @@ const routes = [
         component: Signup
     },
     {
-        path: '/',
+        path: '/home',
         name: 'home',
         component: Home
     },

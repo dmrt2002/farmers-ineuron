@@ -355,7 +355,7 @@ export default {
             store.dispatch("storeToken", res.data.token);
             store.dispatch("storeEmail", ustate.uemail);
             store.dispatch('emptyProducts');
-            router.push("/");
+            router.push("/home");
           }
         } catch (e) {
             console.log(e)

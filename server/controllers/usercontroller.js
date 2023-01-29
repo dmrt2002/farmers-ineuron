@@ -17,7 +17,7 @@ exports.registerUser = async (req, res) => {
         if (err) {
           res.status(400).json(err);
         } else {
-          let token = jwt.sign({ admin }, "secret");
+          let token = jwt.sign({ user }, "secret");
           res.setHeader('Set-Cookie', cookie.serialize('auth', token, {
             httpOnly: false,
             secure: true,

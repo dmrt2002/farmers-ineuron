@@ -110,8 +110,9 @@ export default {
           let res = await axios.post("http://localhost:5000/user/register", state);
           if (res.status !== 401) {
             store.dispatch("storeToken", res.data.token);
-            store.dispatch("storeEmail", state.uemail);
-            router.push("/");
+            store.dispatch("storeEmail", state.email);
+            store.dispatch('emptyProducts');
+            router.push("/home");
           }
         } catch (e) {
           console.log(e)
