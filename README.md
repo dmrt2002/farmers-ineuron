@@ -88,7 +88,7 @@ Start the server
 
 Home page
 
-![Home](home.png)
+[![home.png](https://i.postimg.cc/FF0X6Yfn/home.png)](https://postimg.cc/hh4YzP19)
 
 Products
 
