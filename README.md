@@ -92,15 +92,15 @@ Home page
 
 Products
 
-![Product List](list.png)
+[![list.png](https://i.postimg.cc/tgRFKnCd/list.png)](https://postimg.cc/dhX7d1CD)
 
 Cart
 
-![Cart](cart.png)
+[![cart.png](https://i.postimg.cc/NFXX61pt/cart.png)](https://postimg.cc/wR63HRC4)
 
 Checkout
 
-![Checkout](checkout.png)
+[![checkout.png](https://i.postimg.cc/DzY4RCNF/checkout.png)](https://postimg.cc/GBGpyjrS)
 
 
 ## 🔗 Links
